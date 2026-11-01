@@ -28,8 +28,8 @@ A=$(echo "100 * sqrt(3) / 2" | bc -l)
 total=${#Numbers[@]}
 gtA_count=0
 ltA_count=0
-> gt_data
-> lt_data
+> gt_data.txt
+> lt_data.txt
 
 for (( i=0; i<total; i+=6 ))
 do
