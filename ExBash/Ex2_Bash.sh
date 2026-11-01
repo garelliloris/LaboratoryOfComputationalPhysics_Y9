@@ -28,6 +28,9 @@ A=$(echo "100 * sqrt(3) / 2" | bc -l)
 total=${#Numbers[@]}
 gtA_count=0
 ltA_count=0
+> gt_data
+> lt_data
+
 for (( i=0; i<total; i+=6 ))
 do
     x=${Numbers[i]}
@@ -43,4 +46,30 @@ do
         ((ltA_count++))
         echo "$x $y $z" >> lt_data.txt
     fi
+done
+
+#Doing n copies of data.txt with data divided by i
+n=${1:-3} #If given uses $1 as n, else uses 3
+
+if [ ! -d DATACOPIES ]
+then
+    mkdir DATACOPIES
+fi
+
+for (( i=1; i<=n; i++ ))
+do
+    filename="./DATACOPIES/data_copy_${i}.txt"
+    > "$filename"
+    for (( k=0; k<total; k+=6 ))
+    do
+        line=$(echo "scale=4; 
+            ${Numbers[k]} / $i;
+            ${Numbers[k+1]} / $i;
+            ${Numbers[k+2]} / $i;
+            ${Numbers[k+3]} / $i;
+            ${Numbers[k+4]} / $i;
+            ${Numbers[k+5]} / $i" | bc -l | tr '\n' ' ')
+        echo "$line" >> "$filename"
+    done
+    echo "Copy done in $filename"
 done
