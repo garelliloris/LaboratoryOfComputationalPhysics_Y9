@@ -1,4 +1,4 @@
-#!/bin/bash
+! wget https://www.dropbox.com/s/3vigxoqayo389uc/populations.txt#!/bin/bash
 
 echo "You are in "
 pwd
